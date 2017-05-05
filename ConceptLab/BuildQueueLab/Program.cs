@@ -16,7 +16,7 @@ namespace BuildQueueLab
 			try
 			{
 				Rules rules = Rules.LoadFromFile(RulesFile);
-				Print(rules);
+				//Print(rules);
 
 				Planet planet = new Planet(rules);
 				planet.Name = "Planet Nein";
@@ -24,7 +24,15 @@ namespace BuildQueueLab
 				planet.PopulationCap = 1_000_000;
 				planet.Population = 10_000;
 
-				foreach (int year in Enumerable.Range(2400, 5))
+				// Installations
+				var mine = rules.PlanetaryInstallations.Single(pi => pi.Name == "Mine");
+				var factory = rules.PlanetaryInstallations.Single(pi => pi.Name == "Factory");
+				var bootcamp = rules.PlanetaryInstallations.Single(pi => pi.Name == "Bootcamp");
+				planet.Installations.Add(mine, 5);
+				planet.Installations.Add(factory, 5);
+				planet.Installations.Add(bootcamp, 1);
+
+				foreach (int year in Enumerable.Range(2400, 20))
 				{
 					Console.WriteLine("\nYear " + year);
 					Print(planet);
@@ -49,7 +57,6 @@ namespace BuildQueueLab
 			foreach (var pi in rules.PlanetaryInstallations)
 			{
 				Console.WriteLine($"  {pi.Name}");
-
 				Console.WriteLine($"    Construct: {pi.ConstructionCost}");
 				Console.WriteLine($"    Operate:   {pi.OperationCost}");
 				Console.WriteLine($"    Produces:  {pi.ProductionInput} -> {pi.ProductionOutput}");

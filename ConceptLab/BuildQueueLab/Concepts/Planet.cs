@@ -15,7 +15,7 @@ namespace BuildQueueLab.Concepts
 		public int Population
 		{
 			get { return AvailableResources[PopulationResource]; }
-			set { AvailableResources[PopulationResource] = value; }			
+			internal set { AvailableResources[PopulationResource] = value; }			
 		}
 
 		public int PopulationCap { get; set; }
@@ -28,9 +28,9 @@ namespace BuildQueueLab.Concepts
 
 		private readonly List<IProducer> HiddenProducers = new List<IProducer>();
 
-		public readonly List<PlanetaryInstallationInstanceStack> Installations = new List<PlanetaryInstallationInstanceStack>();
+		public readonly PlanetaryInstallationCollection Installations = new PlanetaryInstallationCollection();
 
-		public IEnumerable<IProducer> Producers => HiddenProducers.Concat(Installations);
+		public IEnumerable<IProducer> Producers => HiddenProducers.Concat(Installations.Items);
 
 		// ctor
 		public Planet(Rules rules)
@@ -40,10 +40,7 @@ namespace BuildQueueLab.Concepts
 
 			// Producers			
 			HiddenProducers.Add(new PopulationProducer());
-			HiddenProducers.Add(new LaborForceProducer(1000));
-
-			var mines = new PlanetaryInstallationInstanceStack(rules.PlanetaryInstallations.Single(pi => pi.Name == "Mine"), 5);
-			Installations.Add(mines);
+			HiddenProducers.Add(new LaborForceProducer(1000));			
 		}
 
 		public void Update(Rules rules)

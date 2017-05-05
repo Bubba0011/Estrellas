@@ -46,6 +46,8 @@
     <Compile Include="Concepts\IProducer.cs" />
     <Compile Include="Concepts\PlanetaryInstallation.cs" />
     <Compile Include="Concepts\Planet.cs" />
+    <Compile Include="Concepts\PlanetaryInstallationCollection.cs" />
+    <Compile Include="Concepts\PlanetaryInstallationStack.cs" />
     <Compile Include="Concepts\ProductionFlow.cs" />
     <Compile Include="Concepts\ResourceRegistry.cs" />
     <Compile Include="Concepts\ResourceAmountVector.cs" />

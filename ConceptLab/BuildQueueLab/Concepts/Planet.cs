@@ -22,7 +22,7 @@ namespace BuildQueueLab.Concepts
 
 		public decimal GrowthRate { get; set; }
 
-		public ResourceAmountVector AvailableResources { get; private set; }
+		public ResourceAmountVector AvailableResources { get; internal set; }
 
 		public readonly ConstructionQueue BuildQueue = new ConstructionQueue();
 

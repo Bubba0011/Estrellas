@@ -22,6 +22,8 @@ namespace BuildQueueLab.Concepts
 			get { return _amounts.All(amount => amount == 0); }
 		}
 
+		public int TotalAmount => _amounts.Sum();
+
 		// ctor
 		internal ResourceAmountVector(ResourceRegistry resourceRegistry)
 		{
@@ -39,6 +41,18 @@ namespace BuildQueueLab.Concepts
 		{
 			_resources = lhs._resources;
 			_amounts = lhs._amounts.Zip(rhs._amounts, op).ToArray();
+		}
+
+		internal ResourceAmountVector Filter(Func<Resource, bool> includeResource)
+		{
+			ResourceAmountVector result = new ResourceAmountVector(this, n => n);
+
+			foreach (Resource res in _resources.Items.Where(res => !includeResource(res)))
+			{
+				result[res] = 0;
+			}
+
+			return result;
 		}
 
 		public override string ToString()
@@ -88,6 +102,19 @@ namespace BuildQueueLab.Concepts
 			return rhs * lhs;
 		}
 
+		// Vector/scalar multiplication
+		public static ResourceAmountVector operator *(ResourceAmountVector lhs, double rhs)
+		{
+			ResourceAmountVector result = new ResourceAmountVector(lhs, n => (int)(n * rhs));
+			return result;
+		}
+
+		// Scalar/vector multiplication
+		public static ResourceAmountVector operator *(double lhs, ResourceAmountVector rhs)
+		{
+			return rhs * lhs;
+		}
+
 		// Vector addition
 		public static ResourceAmountVector operator +(ResourceAmountVector lhs, ResourceAmountVector rhs)
 		{
@@ -105,5 +132,13 @@ namespace BuildQueueLab.Concepts
 		{
 			return new ResourceAmountVector(rhs, n => -n);
 		}
+
+		/// <summary>
+		/// Combines two vectors by selecting the smallest value for each component.
+		/// </summary>
+		public static ResourceAmountVector Minimize(ResourceAmountVector v1, ResourceAmountVector v2)
+		{
+			return new ResourceAmountVector(v1, v2, Math.Min);
+		}		
 	}
 }

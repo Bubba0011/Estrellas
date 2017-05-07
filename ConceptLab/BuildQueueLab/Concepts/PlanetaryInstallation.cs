@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
 using System.Xml.XPath;
 
 namespace BuildQueueLab.Concepts
@@ -27,6 +28,11 @@ namespace BuildQueueLab.Concepts
 			OperationCost = ResourceAmountVector.Initialize(rules.Resources, xPI.XPathSelectElements("Production/Operation/Resource"));
 			ProductionInput = ResourceAmountVector.Initialize(rules.Resources, xPI.XPathSelectElements("Production/Input/Resource"));
 			ProductionOutput = ResourceAmountVector.Initialize(rules.Resources, xPI.XPathSelectElements("Production/Output/Resource"));
+		}
+
+		public void Deploy(Planet planet, int count)
+		{
+			planet.Installations.Add(this, count);
 		}
 	}
 }

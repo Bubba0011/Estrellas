@@ -28,11 +28,15 @@ namespace BuildQueueLab
 				var mine = rules.PlanetaryInstallations.Single(pi => pi.Name == "Mine");
 				var factory = rules.PlanetaryInstallations.Single(pi => pi.Name == "Factory");
 				var bootcamp = rules.PlanetaryInstallations.Single(pi => pi.Name == "Bootcamp");
-				planet.Installations.Add(mine, 5);
-				planet.Installations.Add(factory, 5);
-				planet.Installations.Add(bootcamp, 1);
+				
+				planet.BuildQueue.Enqueue(mine, 5);
+				planet.BuildQueue.Enqueue(factory, 5);
+				planet.BuildQueue.Enqueue(mine, 5);
+				planet.BuildQueue.Enqueue(factory, 5);
+				planet.BuildQueue.Enqueue(mine, 5);
+				planet.BuildQueue.Enqueue(factory, 5);
 
-				foreach (int year in Enumerable.Range(2400, 20))
+				foreach (int year in Enumerable.Range(2400, 15))
 				{
 					Console.WriteLine("\nYear " + year);
 					Print(planet);
@@ -68,6 +72,18 @@ namespace BuildQueueLab
 			Console.WriteLine(planet.Name);
 			Console.WriteLine($"  Population: {planet.Population}");
 			Console.WriteLine($"  Resources:  {planet.AvailableResources}");
+
+			Console.WriteLine("  Installations:");
+			foreach (var pi in planet.Installations.Items)
+			{
+				Console.WriteLine($"    {pi.Installation.Name}: {pi.Count}");
+			}
+
+			Console.WriteLine("  Build queue:");
+			foreach (var order in planet.BuildQueue.Items)
+			{
+				Console.WriteLine($"    {order.Construction.Name} ({Math.Round(100 * order.ProgressPct, 0)}%) ({order.RemainingResources})");
+			}
 		}
 	}
 }

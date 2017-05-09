@@ -57,7 +57,26 @@ namespace BuildQueueLab.Concepts
 
 		public override string ToString()
 		{
+			return ToString(null);
+		}
+
+		public string ToString(string format)
+		{
+			return format == "long" ? LongString() : VectorString();
+		}
+
+		private string VectorString()
+		{
 			return $"({string.Join(",", _amounts)})";
+		}
+
+		private string LongString()
+		{
+			var ras =_resources.Items
+				.Where(res => this[res] != 0)
+				.Select(res => this[res] + " " + res.Name);
+
+			return $"({string.Join(", ", ras)})";
 		}
 
 		internal static ResourceAmountVector Initialize(ResourceRegistry resourceRegistry, IEnumerable<XElement> components)

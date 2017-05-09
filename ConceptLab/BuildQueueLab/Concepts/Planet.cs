@@ -43,10 +43,21 @@ namespace BuildQueueLab.Concepts
 			HiddenProducers.Add(new LaborForceProducer(1000));			
 		}
 
+		/// <summary>
+		/// Performs production and construction.
+		/// </summary>		
 		public void Update(Rules rules)
 		{
 			Produce(rules);
 			Construct(rules);
+		}
+
+		/// <summary>
+		/// Gets a preview of available resources after the next production phase.
+		/// </summary>
+		public ResourceAmountVector GetProductionPreview(Rules rules)
+		{
+			return AvailableResources + CalculateProduction(rules);
 		}
 		
 		/// <summary>
@@ -54,11 +65,20 @@ namespace BuildQueueLab.Concepts
 		/// </summary>
 		private void Produce(Rules rules)
 		{
+			AvailableResources += CalculateProduction(rules);
+		}
+
+		private ResourceAmountVector CalculateProduction(Rules rules)
+		{
+			var result = new ResourceAmountVector(rules.Resources);
+
 			foreach (var producer in Producers.OrderBy(p => p.Priority))
 			{
 				var flow = producer.Produce(rules, this);
-				AvailableResources += flow.NetFlow;
+				result += flow.NetFlow;
 			}
+
+			return result;
 		}
 
 		/// <summary>

@@ -39,7 +39,7 @@ namespace BuildQueueLab
 				foreach (int year in Enumerable.Range(2400, 15))
 				{
 					Console.WriteLine("\nYear " + year);
-					Print(planet);
+					Print(planet, rules);
 					planet.Update(rules);
 				}
 			}
@@ -67,11 +67,11 @@ namespace BuildQueueLab
 			}
 		}
 
-		static void Print(Planet planet)
+		static void Print(Planet planet, Rules rules)
 		{
 			Console.WriteLine(planet.Name);
 			Console.WriteLine($"  Population: {planet.Population}");
-			Console.WriteLine($"  Resources:  {planet.AvailableResources}");
+			Console.WriteLine($"  Resources:  {planet.AvailableResources} -> {planet.GetProductionPreview(rules)}");
 
 			Console.WriteLine("  Installations:");
 			foreach (var pi in planet.Installations.Items)

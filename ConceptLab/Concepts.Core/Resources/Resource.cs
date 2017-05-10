@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 
-namespace BuildQueueLab.Concepts
+namespace Concepts.Core
 {
 	/// <summary>
 	/// Resource definition.
 	/// </summary>
-	class Resource
+	public class Resource
 	{	
 		public readonly string Name;
 

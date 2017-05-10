@@ -1,6 +1,6 @@
-﻿namespace BuildQueueLab.Concepts
+﻿namespace Concepts.Core
 {
-	class ProductionFlow
+	public class ProductionFlow
 	{
 		public readonly ResourceAmountVector Input;
 

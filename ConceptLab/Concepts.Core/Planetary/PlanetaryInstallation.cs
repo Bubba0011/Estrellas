@@ -2,9 +2,9 @@
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-namespace BuildQueueLab.Concepts
+namespace Concepts.Core
 {
-	class PlanetaryInstallation : IConstructable
+	public class PlanetaryInstallation : IConstructable
 	{
 		public string Name { get; private set; }
 

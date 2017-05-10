@@ -1,6 +1,6 @@
-﻿namespace BuildQueueLab.Concepts
+﻿namespace Concepts.Core
 {
-	interface IConstructable
+	public interface IConstructable
 	{
 		string Name { get; }
 

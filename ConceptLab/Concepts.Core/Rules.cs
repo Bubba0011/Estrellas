@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-namespace BuildQueueLab.Concepts
+namespace Concepts.Core
 {
-	class Rules
+	public class Rules
 	{
 		public readonly ResourceRegistry Resources = new ResourceRegistry();			
 

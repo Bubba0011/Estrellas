@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace BuildQueueLab.Concepts
+namespace Concepts.Core
 {
-	class PlanetaryInstallationCollection
+	public class PlanetaryInstallationCollection
 	{
 		private readonly List<PlanetaryInstallationStack> _stacks = new List<PlanetaryInstallationStack>();
 

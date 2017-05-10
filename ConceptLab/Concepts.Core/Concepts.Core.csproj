@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1735B16A-9B0D-41FE-8E09-3781F9FE0FC6}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>BuildQueueLab</RootNamespace>
-    <AssemblyName>BuildQueueLab</AssemblyName>
+    <ProjectGuid>{734324B9-F6FE-4488-9CF5-F4CA5393C6A9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Concepts.Core</RootNamespace>
+    <AssemblyName>Concepts.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,24 +45,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Construction\ConstructionOrder.cs" />
+    <Compile Include="Construction\ConstructionQueue.cs" />
+    <Compile Include="Construction\IConstructable.cs" />
+    <Compile Include="Production\IProducer.cs" />
+    <Compile Include="Planetary\Planet.cs" />
+    <Compile Include="Planetary\PlanetaryInstallation.cs" />
+    <Compile Include="Planetary\PlanetaryInstallationCollection.cs" />
+    <Compile Include="Planetary\PlanetaryInstallationStack.cs" />
+    <Compile Include="Production\Producers.cs" />
+    <Compile Include="Production\ProductionFlow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Resource.cs" />
+    <Compile Include="Resources\ResourceAmountVector.cs" />
+    <Compile Include="Resources\ResourceRegistry.cs" />
+    <Compile Include="Rules.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Data\Rules.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Concepts.Core\Concepts.Core.csproj">
-      <Project>{734324b9-f6fe-4488-9cf5-f4ca5393c6a9}</Project>
-      <Name>Concepts.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

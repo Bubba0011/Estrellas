@@ -1,9 +1,6 @@
-﻿using BuildQueueLab.Concepts;
+﻿using Concepts.Core;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BuildQueueLab
 {
@@ -18,11 +15,10 @@ namespace BuildQueueLab
 				Rules rules = Rules.LoadFromFile(RulesFile);
 				//Print(rules);
 
-				Planet planet = new Planet(rules);
+				Planet planet = new Planet(rules, 10_000);
 				planet.Name = "Planet Nein";
 				planet.GrowthRate = 0.05m;
 				planet.PopulationCap = 1_000_000;
-				planet.Population = 10_000;
 
 				// Installations
 				var mine = rules.PlanetaryInstallations.Single(pi => pi.Name == "Mine");

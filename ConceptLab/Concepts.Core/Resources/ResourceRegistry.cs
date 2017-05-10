@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace BuildQueueLab.Concepts
+namespace Concepts.Core
 {
 	/// <summary>
 	/// Contains resource definitions.
 	/// </summary>
-	class ResourceRegistry
+	public class ResourceRegistry
 	{
 		private readonly List<Resource> _resources = new List<Resource>();
 

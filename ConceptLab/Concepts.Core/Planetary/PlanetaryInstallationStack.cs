@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace BuildQueueLab.Concepts
+namespace Concepts.Core
 {
-	class PlanetaryInstallationStack : IProducer
+	public class PlanetaryInstallationStack : IProducer
 	{
 		public readonly PlanetaryInstallation Installation;
 

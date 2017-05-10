@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace BuildQueueLab.Concepts
+namespace Concepts.Core
 { 
-	class ResourceAmountVector
+	public class ResourceAmountVector
 	{
 		private readonly ResourceRegistry _resources;
 		private readonly int[] _amounts;

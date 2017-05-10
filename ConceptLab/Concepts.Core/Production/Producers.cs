@@ -1,11 +1,11 @@
-﻿using BuildQueueLab.Concepts;
+﻿using Concepts.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuildQueueLab.Concepts
+namespace Concepts.Core
 {
 	class PopulationProducer : IProducer
 	{

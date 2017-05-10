@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuildQueueLab.Concepts
+namespace Concepts.Core
 {
-	interface IProducer
+	public interface IProducer
 	{
 		int Priority { get; }
 

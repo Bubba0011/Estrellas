@@ -20,6 +20,8 @@ namespace BuildQueueLab.UI.ViewModels
 
 		public ResourceAmountVectorWrapper AvailableResources { get; private set; }
 
+		public ConstructionQueueVm BuildQueue { get; private set; }
+
 		// ctor
 		public PlanetVm(Planet planet, Rules rules)
 		{
@@ -27,6 +29,8 @@ namespace BuildQueueLab.UI.ViewModels
 
 			var next = _planet.GetProductionPreview(rules);
 			AvailableResources = new ResourceAmountVectorWrapper(_planet.AvailableResources, next);
+
+			BuildQueue = new ConstructionQueueVm(_planet.BuildQueue);
 		}
 	}
 

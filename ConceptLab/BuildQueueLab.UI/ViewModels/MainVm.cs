@@ -63,8 +63,8 @@ namespace BuildQueueLab.UI.ViewModels
 			var factory = rules.PlanetaryInstallations.Single(pi => pi.Name == "Factory");
 			var bootcamp = rules.PlanetaryInstallations.Single(pi => pi.Name == "Bootcamp");
 
-			planet.BuildQueue.Enqueue(mine, 5);
-			planet.BuildQueue.Enqueue(factory, 5);
+			planet.BuildQueue.Enqueue(mine, 50);
+			planet.BuildQueue.Enqueue(factory, 50);
 			planet.BuildQueue.Enqueue(mine, 5);
 			planet.BuildQueue.Enqueue(factory, 5);
 			planet.BuildQueue.Enqueue(mine, 5);

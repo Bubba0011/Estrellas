@@ -89,6 +89,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\ConstructionQueueVm.cs" />
     <Compile Include="ViewModels\ErrorVm.cs" />
     <Compile Include="ViewModels\MainVm.cs" />
     <Compile Include="ViewModels\PlanetVm.cs" />

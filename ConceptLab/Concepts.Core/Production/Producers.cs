@@ -9,16 +9,24 @@ namespace Concepts.Core
 {
 	class PopulationProducer : IProducer
 	{
+		private Planet _planet;
+
 		public int Priority => 0;
 
-		public ProductionFlow Produce(Rules rules, Planet planet)
+		// ctor
+		public PopulationProducer(Planet planet)
+		{
+			_planet = planet;
+		}
+
+		public ProductionFlow Produce(Rules rules, ResourceAmountVector availableResources)
 		{
 			var populationResource = rules.Resources.PopulationResource;
 
-			int pop = planet.AvailableResources[populationResource];
-			double capPct = (double)pop / planet.PopulationCap;
+			int pop = availableResources[populationResource];
+			double capPct = (double)pop / _planet.PopulationCap;
 			double penalty = capPct > 0.25 ? Math.Pow(capPct - 0.25, 0.75) / 0.7 : 0;
-			decimal effectiveGrowthRate = planet.GrowthRate * (1 - (decimal)penalty);
+			decimal effectiveGrowthRate = _planet.GrowthRate * (1 - (decimal)penalty);
 
 			int growth = (int)(pop * effectiveGrowthRate);
 
@@ -39,10 +47,12 @@ namespace Concepts.Core
 			_factor = factor;
 		}
 
-		public ProductionFlow Produce(Rules rules, Planet planet)
+		public ProductionFlow Produce(Rules rules, ResourceAmountVector availableResources)
 		{
+			var populationResource = rules.Resources.PopulationResource;
 			var laborResource = rules.Resources.GetResource("Labor");
-			int laborUnits = planet.Population / _factor;
+
+			int laborUnits = availableResources[populationResource] / _factor;
 
 			ResourceAmountVector output = laborResource.Versor * laborUnits;
 

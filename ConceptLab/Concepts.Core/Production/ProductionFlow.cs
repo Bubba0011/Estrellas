@@ -23,5 +23,16 @@
 			Input = output * 0;
 			Output = output;
 		}
+
+		public ProductionFlow(ResourceRegistry resources)
+		{
+			Input = new ResourceAmountVector(resources);
+			Output = new ResourceAmountVector(resources);
+		}
+
+		public static ProductionFlow operator +(ProductionFlow lhs, ProductionFlow rhs)
+		{
+			return new ProductionFlow(lhs.Input + rhs.Input, lhs.Output + rhs.Output);
+		}
 	}
 }

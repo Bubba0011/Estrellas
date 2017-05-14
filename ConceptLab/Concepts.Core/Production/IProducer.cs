@@ -10,6 +10,6 @@ namespace Concepts.Core
 	{
 		int Priority { get; }
 
-		ProductionFlow Produce(Rules rules, Planet planet);
+		ProductionFlow Produce(Rules rules, ResourceAmountVector availableResources);
 	}
 }

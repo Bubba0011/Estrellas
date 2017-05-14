@@ -17,10 +17,10 @@ namespace Concepts.Core
 			Count = initialCount;
 		}
 
-		public ProductionFlow Produce(Rules rules, Planet planet)
+		public ProductionFlow Produce(Rules rules, ResourceAmountVector availableResources)
 		{
-			int opCount = planet.AvailableResources / Installation.OperationCost;
-			int inCount = planet.AvailableResources / Installation.ProductionInput;
+			int opCount = availableResources / Installation.OperationCost;
+			int inCount = availableResources / Installation.ProductionInput;
 			int count = Math.Min(Math.Min(opCount, inCount), Count);
 
 			ResourceAmountVector input = Installation.ProductionInput * count;

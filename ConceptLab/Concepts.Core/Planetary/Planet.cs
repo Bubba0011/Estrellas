@@ -39,7 +39,7 @@ namespace Concepts.Core
 			AvailableResources = new ResourceAmountVector(rules.Resources);
 
 			// Producers			
-			HiddenProducers.Add(new PopulationProducer());
+			HiddenProducers.Add(new PopulationProducer(this));
 			HiddenProducers.Add(new LaborForceProducer(1000));
 
 			Population = population;
@@ -59,7 +59,13 @@ namespace Concepts.Core
 		/// </summary>
 		public ResourceAmountVector GetProductionPreview(Rules rules)
 		{
-			return AvailableResources.Filter(resource => !resource.IsTransitory) + CalculateProduction(rules);
+			// Clear remaining transitory resources
+			var availableResources = AvailableResources.Filter(resource => !resource.IsTransitory);
+			
+			// "Perform" production
+			var productionFlow = CalculateProduction(rules, availableResources);
+
+			return availableResources + productionFlow.NetFlow;
 		}
 		
 		/// <summary>
@@ -67,21 +73,19 @@ namespace Concepts.Core
 		/// </summary>
 		private void Produce(Rules rules)
 		{
-			// Clear remaining transitory resources
-			AvailableResources = AvailableResources.Filter(resource => !resource.IsTransitory);
-
-			// Add production
-			AvailableResources += CalculateProduction(rules);
+			AvailableResources = GetProductionPreview(rules);
 		}
 
-		private ResourceAmountVector CalculateProduction(Rules rules)
+		private ProductionFlow CalculateProduction(Rules rules, ResourceAmountVector availableResources)
 		{
-			var result = new ResourceAmountVector(rules.Resources);
-
+			var result = new ProductionFlow(rules.Resources);
+			
 			foreach (var producer in Producers.OrderBy(p => p.Priority))
 			{
-				var flow = producer.Produce(rules, this);
-				result += flow.NetFlow;
+				var flow = producer.Produce(rules, availableResources);
+				result += flow;
+
+				availableResources -= flow.Input;
 			}
 
 			return result;

@@ -11,6 +11,8 @@ namespace Concepts.Core
 		private readonly ResourceRegistry _resources;
 		private readonly int[] _amounts;
 
+		public IEnumerable<Resource> Resources => _resources.Items;
+
 		public int this[Resource resource]
 		{
 			get { return _amounts[_resources.IndexOfResource(resource)]; }

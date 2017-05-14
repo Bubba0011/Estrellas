@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Rules>
+	<Resources>
+		<!-- Natural resources (cumulative, elementary) -->
+		<Resource name="Boranium" />
+		<Resource name="Germanium" />
+		<Resource name="Ironium" />		
+		<!-- Refined resources -->
+		<Resource name="Marines" is-refined="true" />		
+		<!-- Other resource (transitory, elementary) -->
+		<Resource name="Labor" is-transitory="true" />
+	</Resources>
+
+	<PlanetaryInstallations>
+		<PI name="Mine" prio="5">
+			<Construction>
+				<Resource name="Labor" amount="10" />
+			</Construction>
+			<Production>
+				<Operation>
+					<Resource name="Population" amount="1000" />
+				</Operation>
+				<Input />
+				<Output>
+					<Resource name="Boranium" amount="1" />
+					<Resource name="Germanium" amount="1" />
+					<Resource name="Ironium" amount="1" />
+				</Output>
+			</Production>
+		</PI>
+		<PI name="Factory" prio="5">
+			<Construction>				
+				<Resource name="Germanium" amount="4" />
+				<Resource name="Labor" amount="10" />
+			</Construction>
+			<Production>
+				<Operation>
+					<Resource name="Population" amount="1000" />
+				</Operation>
+				<Input />
+				<Output>
+					<Resource name="Labor" amount="1" />
+				</Output>
+			</Production>
+		</PI>
+		<PI name="Bootcamp" prio="3">
+			<Construction>
+				<Resource name="Boranium" amount="400" />
+				<Resource name="Germanium" amount="200" />
+				<Resource name="Ironium" amount="400" />
+				<Resource name="Labor" amount="1000" />
+			</Construction>
+			<Production>
+				<Operation>
+					<Resource name="Population" amount="15000" />
+				</Operation>
+				<Input>
+					<Resource name="Population" amount="100" />
+				</Input>
+				<Output>
+					<Resource name="Marines" amount="100" />
+				</Output>
+			</Production>
+		</PI>
+	</PlanetaryInstallations>
+</Rules>

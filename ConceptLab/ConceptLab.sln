@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildQueueLab", "BuildQueue
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Concepts.Core", "Concepts.Core\Concepts.Core.csproj", "{734324B9-F6FE-4488-9CF5-F4CA5393C6A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildQueueLab.UI", "BuildQueueLab.UI\BuildQueueLab.UI.csproj", "{A333B319-B866-4539-9FF9-C94CFEC29201}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{734324B9-F6FE-4488-9CF5-F4CA5393C6A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{734324B9-F6FE-4488-9CF5-F4CA5393C6A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{734324B9-F6FE-4488-9CF5-F4CA5393C6A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A333B319-B866-4539-9FF9-C94CFEC29201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A333B319-B866-4539-9FF9-C94CFEC29201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A333B319-B866-4539-9FF9-C94CFEC29201}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A333B319-B866-4539-9FF9-C94CFEC29201}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

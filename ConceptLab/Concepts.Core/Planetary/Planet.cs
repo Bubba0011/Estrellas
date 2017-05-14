@@ -59,7 +59,7 @@ namespace Concepts.Core
 		/// </summary>
 		public ResourceAmountVector GetProductionPreview(Rules rules)
 		{
-			return AvailableResources + CalculateProduction(rules);
+			return AvailableResources.Filter(resource => !resource.IsTransitory) + CalculateProduction(rules);
 		}
 		
 		/// <summary>
@@ -67,6 +67,10 @@ namespace Concepts.Core
 		/// </summary>
 		private void Produce(Rules rules)
 		{
+			// Clear remaining transitory resources
+			AvailableResources = AvailableResources.Filter(resource => !resource.IsTransitory);
+
+			// Add production
 			AvailableResources += CalculateProduction(rules);
 		}
 

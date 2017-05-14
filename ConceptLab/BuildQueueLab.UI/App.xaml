@@ -1,0 +1,15 @@
+﻿<Application x:Class="BuildQueueLab.UI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BuildQueueLab.UI"
+             StartupUri="Windows/MainWindow.xaml">
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Views/ErrorView.xaml" />
+				<ResourceDictionary Source="Views/MainView.xaml" />
+				<ResourceDictionary Source="Views/PlanetView.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Application.Resources>
+</Application>

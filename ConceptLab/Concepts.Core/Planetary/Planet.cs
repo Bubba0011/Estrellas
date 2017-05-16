@@ -85,7 +85,7 @@ namespace Concepts.Core
 				var flow = producer.Produce(rules, availableResources);
 				result += flow;
 
-				availableResources -= flow.Input;
+				availableResources += flow.NetFlow;
 			}
 
 			return result;

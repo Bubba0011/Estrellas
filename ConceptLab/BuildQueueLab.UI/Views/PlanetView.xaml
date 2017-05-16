@@ -2,38 +2,69 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:BuildQueueLab.UI.Views"
 						  xmlns:vm="clr-namespace:BuildQueueLab.UI.ViewModels">
+
+	<Style TargetType="Expander">
+		<Setter Property="IsExpanded" Value="True" />
+		<Setter Property="BorderBrush" Value="#300000FF" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="Margin" Value="2" />
+		<Setter Property="HeaderTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<TextBlock Text="{Binding}" FontWeight="Bold" />
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<ContentControl Content="{Binding}" Margin="25,0,2,2"/>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
 	<DataTemplate DataType="{x:Type vm:PlanetVm}">
 		<StackPanel>
-			<Border BorderBrush="DarkBlue" BorderThickness="1">
-				<TextBlock Text="{Binding Name}" />
-			</Border>
-			<StackPanel Orientation="Horizontal">
-				<TextBlock>
-					<Run Text="Population:" />
+			
+			<TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16" Margin="2" />
+						
+			<Expander Header="Population">
+				<TextBlock>					
 					<Run Text="{Binding Population, Mode=OneWay, StringFormat=# ### ###}" />
 					<Run Text="of" />
 					<Run Text="{Binding PopulationCapacity, Mode=OneWay, StringFormat=# ### ###}" />
 					<Run Text="{Binding PopulationCapPct, Mode=OneWay, StringFormat={}({0}%)}" />
 				</TextBlock>
-			</StackPanel>
-			<ListView ItemsSource="{Binding AvailableResources.Items}">
-				<ListView.ItemTemplate>
-					<DataTemplate>
-						<StackPanel Orientation="Horizontal">
-							<TextBlock Text="{Binding Name}" Width="100" FontWeight="Bold" />
-							<TextBlock Text="{Binding CurrentAmount}" Width="50" TextAlignment="Right" FontWeight="Bold" />
-							<TextBlock Text="{Binding Change}" Width="50" TextAlignment="Right" Foreground="Green" />
-							<TextBlock Text="{Binding NextAmount}" Width="50" TextAlignment="Right" FontWeight="SemiBold" />
-						</StackPanel>
-					</DataTemplate>
-				</ListView.ItemTemplate>
-			</ListView>
-			<ContentControl Content="{Binding BuildQueue}" />
+			</Expander>
+
+			<Expander Header="Resources">
+				<ItemsControl ItemsSource="{Binding AvailableResources.Items}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="{Binding Name}" Width="100" />
+								<TextBlock Text="{Binding CurrentAmount}" Width="50" TextAlignment="Right" FontWeight="Bold" />
+								<TextBlock Text="{Binding Change}" Width="50" TextAlignment="Right" Foreground="Green" />
+								<TextBlock Text="{Binding NextAmount}" Width="50" TextAlignment="Right" FontWeight="SemiBold" />
+							</StackPanel>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</Expander>
+
+			<Expander Header="Installations">
+				<ItemsControl ItemsSource="{Binding Installations}" />
+			</Expander>
+
+			<Expander Header="Build Queue">
+				<ContentControl Content="{Binding BuildQueue}" />
+			</Expander>
 		</StackPanel>
 	</DataTemplate>
 
 	<DataTemplate DataType="{x:Type vm:ConstructionQueueVm}">
-		<ListView ItemsSource="{Binding Items}" />
+		<ItemsControl ItemsSource="{Binding Items}" />
 	</DataTemplate>
 
 	<DataTemplate DataType="{x:Type vm:OngoingBuildOrderWrapper}">
@@ -46,6 +77,14 @@
 	</DataTemplate>
 
 	<DataTemplate DataType="{x:Type vm:BuildOrderBatchWrapper}">
+		<StackPanel Orientation="Horizontal">
+			<TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+			<TextBlock Text=" x " />
+			<TextBlock Text="{Binding Count}" />
+		</StackPanel>
+	</DataTemplate>
+
+	<DataTemplate DataType="{x:Type vm:InstallationStackWrapper}">
 		<StackPanel Orientation="Horizontal">
 			<TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
 			<TextBlock Text=" x " />

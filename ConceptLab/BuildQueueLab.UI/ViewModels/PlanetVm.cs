@@ -22,6 +22,8 @@ namespace BuildQueueLab.UI.ViewModels
 
 		public ConstructionQueueVm BuildQueue { get; private set; }
 
+		public IEnumerable<InstallationStackWrapper> Installations { get; private set; }
+
 		// ctor
 		public PlanetVm(Planet planet, Rules rules)
 		{
@@ -31,6 +33,8 @@ namespace BuildQueueLab.UI.ViewModels
 			AvailableResources = new ResourceAmountVectorWrapper(_planet.AvailableResources, next);
 
 			BuildQueue = new ConstructionQueueVm(_planet.BuildQueue);
+
+			Installations = _planet.Installations.Items.Select(stack => new InstallationStackWrapper(stack)).ToList();
 		}
 	}
 
@@ -63,6 +67,20 @@ namespace BuildQueueLab.UI.ViewModels
 			Name = resource.Name;
 			CurrentAmount = current;
 			NextAmount = next;
+		}
+	}
+
+	class InstallationStackWrapper : ObservableObject
+	{
+		public int Count { get; private set; }
+
+		public string Name { get; private set; }
+
+		// ctor
+		public InstallationStackWrapper(PlanetaryInstallationStack stack)
+		{
+			Count = stack.Count;
+			Name = stack.Installation.Name;
 		}
 	}
 }

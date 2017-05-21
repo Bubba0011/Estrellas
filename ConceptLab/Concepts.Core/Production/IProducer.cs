@@ -8,6 +8,8 @@ namespace Concepts.Core
 {
 	public interface IProducer
 	{
+		string Name { get; }
+
 		int Priority { get; }
 
 		ProductionFlow Produce(Rules rules, ResourceAmountVector availableResources);

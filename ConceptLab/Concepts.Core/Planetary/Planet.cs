@@ -63,9 +63,9 @@ namespace Concepts.Core
 			var availableResources = AvailableResources.Filter(resource => !resource.IsTransitory);
 			
 			// "Perform" production
-			var productionFlow = CalculateProduction(rules, availableResources);
+			var productionReport = CalculateProduction(rules, availableResources);
 
-			return availableResources + productionFlow.NetFlow;
+			return availableResources + productionReport.TotalFlow.NetFlow;
 		}
 		
 		/// <summary>
@@ -76,19 +76,23 @@ namespace Concepts.Core
 			AvailableResources = GetProductionPreview(rules);
 		}
 
-		private ProductionFlow CalculateProduction(Rules rules, ResourceAmountVector availableResources)
+		private ProductionReport CalculateProduction(Rules rules, ResourceAmountVector availableResources)
 		{
-			var result = new ProductionFlow(rules.Resources);
-			
+			var report = new ProductionReport();
+						
 			foreach (var producer in Producers.OrderBy(p => p.Priority))
 			{
-				var flow = producer.Produce(rules, availableResources);
-				result += flow;
-
-				availableResources += flow.NetFlow;
+				var reportItem = new ProductionReportItem()
+				{
+					ProducerName = producer.Name,
+					Flow = producer.Produce(rules, availableResources),
+				};
+				
+				report.AddItem(reportItem);
+				availableResources += reportItem.Flow.NetFlow;
 			}
 
-			return result;
+			return report;
 		}
 
 		/// <summary>

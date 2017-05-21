@@ -11,6 +11,8 @@ namespace Concepts.Core
 	{
 		private Planet _planet;
 
+		public string Name => "PopulationGrowth";
+
 		public int Priority => 0;
 
 		// ctor
@@ -39,6 +41,8 @@ namespace Concepts.Core
 	class LaborForceProducer : IProducer
 	{
 		private int _factor;
+
+		public string Name => "Labor Force";
 
 		public int Priority => 1;
 

@@ -55,6 +55,7 @@
     <Compile Include="Planetary\PlanetaryInstallationStack.cs" />
     <Compile Include="Production\Producers.cs" />
     <Compile Include="Production\ProductionFlow.cs" />
+    <Compile Include="Production\ProductionReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.cs" />
     <Compile Include="Resources\ResourceAmountVector.cs" />

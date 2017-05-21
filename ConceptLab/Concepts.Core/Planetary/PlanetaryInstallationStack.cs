@@ -6,6 +6,8 @@ namespace Concepts.Core
 	{
 		public readonly PlanetaryInstallation Installation;
 
+		public string Name => Installation.Name;
+
 		public int Priority => Installation.Priority;
 
 		public int Count { get; set; }

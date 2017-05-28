@@ -39,7 +39,8 @@ namespace Concepts.Core
 			AvailableResources = new ResourceAmountVector(rules.Resources);
 
 			// Producers			
-			HiddenProducers.Add(new PopulationProducer(this));
+			//HiddenProducers.Add(new PopulationProducer(this));
+			HiddenProducers.Add(new FoodBasedPopulationProducer(this));
 			HiddenProducers.Add(new LaborForceProducer(1000));
 
 			Population = population;

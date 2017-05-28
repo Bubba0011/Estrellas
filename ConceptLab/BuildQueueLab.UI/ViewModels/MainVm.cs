@@ -62,13 +62,21 @@ namespace BuildQueueLab.UI.ViewModels
 			var mine = rules.PlanetaryInstallations.Single(pi => pi.Name == "Mine");
 			var factory = rules.PlanetaryInstallations.Single(pi => pi.Name == "Factory");
 			var bootcamp = rules.PlanetaryInstallations.Single(pi => pi.Name == "Bootcamp");
+			var farm = rules.PlanetaryInstallations.Single(pi => pi.Name == "Farm");
 
-			planet.BuildQueue.Enqueue(mine, 50);
-			planet.BuildQueue.Enqueue(factory, 50);
+			planet.Installations.Add(farm, 2);
+
+			// Build queue
+			planet.BuildQueue.Enqueue(farm, 5);
 			planet.BuildQueue.Enqueue(mine, 5);
 			planet.BuildQueue.Enqueue(factory, 5);
-			planet.BuildQueue.Enqueue(mine, 5);
-			planet.BuildQueue.Enqueue(factory, 5);
+			planet.BuildQueue.Enqueue(farm, 5);
+			planet.BuildQueue.Enqueue(mine, 10);
+			planet.BuildQueue.Enqueue(factory, 10);
+			planet.BuildQueue.Enqueue(farm, 5);
+			planet.BuildQueue.Enqueue(mine, 15);
+			planet.BuildQueue.Enqueue(factory, 15);
+			planet.BuildQueue.Enqueue(farm, 5);
 
 			return planet;
 		}

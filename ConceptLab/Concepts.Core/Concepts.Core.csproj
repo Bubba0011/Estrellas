@@ -48,12 +48,14 @@
     <Compile Include="Construction\ConstructionOrder.cs" />
     <Compile Include="Construction\ConstructionQueue.cs" />
     <Compile Include="Construction\IConstructable.cs" />
+    <Compile Include="Production\FoodBasedPopulationProducer.cs" />
     <Compile Include="Production\IProducer.cs" />
     <Compile Include="Planetary\Planet.cs" />
     <Compile Include="Planetary\PlanetaryInstallation.cs" />
     <Compile Include="Planetary\PlanetaryInstallationCollection.cs" />
     <Compile Include="Planetary\PlanetaryInstallationStack.cs" />
-    <Compile Include="Production\Producers.cs" />
+    <Compile Include="Production\LaborForceProducer.cs" />
+    <Compile Include="Production\PopulationProducer.cs" />
     <Compile Include="Production\ProductionFlow.cs" />
     <Compile Include="Production\ProductionReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -12,6 +12,8 @@ namespace Concepts.Core
 
 		public readonly Resource PopulationResource;
 
+		public readonly Resource FoodResource;
+
 		public int Count => _resources.Count;
 
 		public IEnumerable<Resource> Items => _resources.AsReadOnly();
@@ -22,6 +24,7 @@ namespace Concepts.Core
 		public ResourceRegistry()
 		{
 			PopulationResource = AddResource("Population", false, false);
+			FoodResource = AddResource("Food", true, false);
 		}
 
 		internal Resource AddResource(string name, bool transitory, bool refined)

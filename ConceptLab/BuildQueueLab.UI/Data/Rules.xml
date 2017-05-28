@@ -12,6 +12,20 @@
 	</Resources>
 
 	<PlanetaryInstallations>
+		<PI name="Farm" prio="0">
+			<Construction>
+				<Resource name="Labor" amount="10" />
+			</Construction>
+			<Production>
+				<Operation>
+					<Resource name="Population" amount="1000" />
+				</Operation>
+				<Input />
+				<Output>
+					<Resource name="Food" amount="5" />
+				</Output>
+			</Production>
+		</PI>
 		<PI name="Mine" prio="5">
 			<Construction>
 				<Resource name="Labor" amount="10" />

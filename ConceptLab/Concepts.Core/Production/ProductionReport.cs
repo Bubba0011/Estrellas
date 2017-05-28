@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Concepts.Core
 {
-	class ProductionReport
+	public class ProductionReport
 	{
 		private List<ProductionReportItem> _items = new List<ProductionReportItem>();
 
@@ -20,7 +20,7 @@ namespace Concepts.Core
 		}
 	}
 
-	class ProductionReportItem
+	public class ProductionReportItem
 	{
 		public string ProducerName { get; set; }
 

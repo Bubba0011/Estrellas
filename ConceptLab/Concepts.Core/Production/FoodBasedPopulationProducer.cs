@@ -32,8 +32,9 @@ namespace Concepts.Core
 				double mod = (1 - foodToPopRatio) / 10;
 				int popLost = (int)(pop * mod);
 
-				ResourceAmountVector v = populationResource.Versor * popLost;
-				return new ProductionFlow(v, 0 * v);
+				ResourceAmountVector vPop = populationResource.Versor * popLost;
+				ResourceAmountVector vFood = foodResource.Versor * food;
+				return new ProductionFlow(vPop + vFood, 0 * vPop);
 			}
 			else
 			{
@@ -42,8 +43,9 @@ namespace Concepts.Core
 				decimal effectiveGrowthRate = _planet.GrowthRate * (decimal)mod;
 				int growth = (int)(pop * effectiveGrowthRate);
 
+				ResourceAmountVector input = foodResource.Versor * (Math.Min(foodToPopRatio, 1.5) * pop / 1000);
 				ResourceAmountVector output = populationResource.Versor * growth;
-				return new ProductionFlow(output);
+				return new ProductionFlow(input, output);
 			}
 		}
 	}

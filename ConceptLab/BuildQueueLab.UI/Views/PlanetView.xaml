@@ -26,7 +26,6 @@
 	
 	<DataTemplate DataType="{x:Type vm:PlanetVm}">
 		<StackPanel>
-			
 			<TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16" Margin="2" />
 						
 			<Expander Header="Population">
@@ -60,6 +59,24 @@
 			<Expander Header="Build Queue">
 				<ContentControl Content="{Binding BuildQueue}" />
 			</Expander>
+
+			<Expander Header="Districts">
+				<ListView ItemsSource="{Binding Districts}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+					<ListView.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel ItemHeight="100" ItemWidth="100" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}, Path=ActualWidth}" />
+						</ItemsPanelTemplate>
+					</ListView.ItemsPanel>
+					
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<Border BorderBrush="Black" BorderThickness="1" Width="90" Height="90">
+								<ContentControl Content="{Binding}" />
+							</Border>
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
+			</Expander>
 		</StackPanel>
 	</DataTemplate>
 
@@ -89,6 +106,16 @@
 			<TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
 			<TextBlock Text=" x " />
 			<TextBlock Text="{Binding Count}" />
+		</StackPanel>
+	</DataTemplate>
+
+	<DataTemplate DataType="{x:Type vm:DistrictWrapper}">
+		<StackPanel Margin="2">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="District #" />
+				<TextBlock Text="{Binding Id}" />
+			</StackPanel>
+			<ItemsControl ItemsSource="{Binding Flags}" />
 		</StackPanel>
 	</DataTemplate>
 </ResourceDictionary>

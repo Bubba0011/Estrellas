@@ -17,6 +17,8 @@ namespace BuildQueueLab.UI.ViewModels
 		private Rules _rules;
 		private Planet _planet;
 
+		public int Turn { get; private set; } = 1;
+
 		public PlanetVm CurrentPlanet { get; private set; }
 
 		public ICommand UpdateCommand { get; private set; }
@@ -49,11 +51,14 @@ namespace BuildQueueLab.UI.ViewModels
 			_planet.Update(_rules);
 			CurrentPlanet = new PlanetVm(_planet, _rules);
 			RaisePropertyChanged(() => CurrentPlanet);
+
+			Turn++;
+			RaisePropertyChanged(() => Turn);
 		}
 
 		private Planet CreatePlanet(Rules rules)
 		{
-			Planet planet = new Planet(rules, 10_000);
+			Planet planet = PlanetBuilder.Build(rules, 10_000, 64);
 			planet.Name = "Planet Nein";
 			planet.GrowthRate = 0.15m;
 			planet.PopulationCap = 1_000_000;

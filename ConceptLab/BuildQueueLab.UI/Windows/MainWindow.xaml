@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:BuildQueueLab.UI.Windows"
         mc:Ignorable="d"
         Title="Estrellas.Concepts.BuildQueueLab.UI" Height="350" Width="525">
+	<Window.InputBindings>
+		<KeyBinding Key="F5" Command="{Binding UpdateCommand}" />
+	</Window.InputBindings>
 	<Grid>
 		<ContentControl Content="{Binding}" />
 	</Grid>

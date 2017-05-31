@@ -5,8 +5,21 @@
 	<DataTemplate DataType="{x:Type vm:MainVm}">
 		<DockPanel>
 			<Menu DockPanel.Dock="Top">
-				<MenuItem Header="Update" Command="{Binding UpdateCommand}" />
+				<MenuItem Header="Turn">
+					<MenuItem Header="Generate Next" Command="{Binding UpdateCommand}" InputGestureText="F5" />
+				</MenuItem>
+				<MenuItem Header="Planet">
+					<MenuItem Header="Enqueue Factory" Command="{Binding CurrentPlanet.EnqueueInstallationCommand}" CommandParameter="Factory" />
+					<MenuItem Header="Enqueue Farm" Command="{Binding CurrentPlanet.EnqueueInstallationCommand}" CommandParameter="Farm" />
+					<MenuItem Header="Enqueue Mine" Command="{Binding CurrentPlanet.EnqueueInstallationCommand}" CommandParameter="Mine" />
+				</MenuItem>
 			</Menu>
+			
+			<StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="4">
+				<TextBlock Text="Turn: " />
+				<TextBlock Text="{Binding Turn}" />
+			</StackPanel>
+			
 			<ContentControl Content="{Binding CurrentPlanet}" />
 		</DockPanel>
 	</DataTemplate>

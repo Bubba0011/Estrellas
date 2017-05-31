@@ -32,14 +32,15 @@ namespace Concepts.Core
 
 		public IEnumerable<IProducer> Producers => HiddenProducers.Concat(Installations.Items);
 
+		public readonly List<District> Districts = new List<District>();
+
 		// ctor
 		public Planet(Rules rules, int population = 0)
 		{
 			PopulationResource = rules.Resources.PopulationResource;
 			AvailableResources = new ResourceAmountVector(rules.Resources);
 
-			// Producers			
-			//HiddenProducers.Add(new PopulationProducer(this));
+			// Producers
 			HiddenProducers.Add(new FoodBasedPopulationProducer(this));
 			HiddenProducers.Add(new LaborForceProducer(1000));
 
@@ -102,6 +103,33 @@ namespace Concepts.Core
 		private void Construct(Rules rules)
 		{
 			BuildQueue.Construct(this);
+		}
+	}
+
+	public static class PlanetBuilder
+	{
+		public static Planet Build(Rules rules, int population, int districtCount)
+		{
+			Random rnd = new Random(123456);
+
+			Planet planet = new Planet(rules, population);
+
+			for (int i = 0; i < districtCount; i++)
+			{
+				District district = new District();
+
+				foreach (DistrictType type in rules.DistrictTypes.Items)
+				{
+					if (rnd.Next(0, 100) < type.Pct)
+					{
+						district.Types.Add(type);
+					}
+				}
+
+				planet.Districts.Add(district);
+			}
+
+			return planet;
 		}
 	}
 }

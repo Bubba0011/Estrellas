@@ -10,7 +10,9 @@ namespace Concepts.Core
 {
 	public class Rules
 	{
-		public readonly ResourceRegistry Resources = new ResourceRegistry();			
+		public readonly ResourceRegistry Resources = new ResourceRegistry();
+
+		public readonly DistrictTypeRegistry DistrictTypes = new DistrictTypeRegistry();
 
 		public readonly List<PlanetaryInstallation> PlanetaryInstallations = new List<PlanetaryInstallation>();
 
@@ -33,6 +35,14 @@ namespace Concepts.Core
 			foreach (var resource in rules.Resources.Items)
 			{
 				resource.Versor = rules.Resources.GetResourceVersor(resource);
+			}
+
+			// District types
+			foreach (var xDistrictType in xRules.XPathSelectElements("Districts/Type"))
+			{
+				string name = (string)xDistrictType.Attribute("name");
+				int pct = (int)xDistrictType.Attribute("pct");
+				rules.DistrictTypes.Add(name, pct);
 			}
 
 			// PIs			

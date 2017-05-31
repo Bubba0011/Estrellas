@@ -11,6 +11,11 @@
 		<Resource name="Labor" is-transitory="true" />
 	</Resources>
 
+	<Districts>
+		<Type name="Farmland" pct="35" />
+		<Type name="Mineral Deposit" pct="25" />
+	</Districts>
+
 	<PlanetaryInstallations>
 		<PI name="Farm" prio="0">
 			<Construction>

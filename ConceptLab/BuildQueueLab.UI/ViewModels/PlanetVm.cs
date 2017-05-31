@@ -1,13 +1,16 @@
 ﻿using Concepts.Core;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 
 namespace BuildQueueLab.UI.ViewModels
 {
 	class PlanetVm : ViewModelBase
 	{
+		private Rules _rules;
 		private Planet _planet;
 
 		public string Name => _planet.Name;
@@ -24,9 +27,14 @@ namespace BuildQueueLab.UI.ViewModels
 
 		public IEnumerable<InstallationStackWrapper> Installations { get; private set; }
 
+		public IEnumerable<DistrictWrapper> Districts { get; private set; }
+
+		public ICommand EnqueueInstallationCommand { get; private set; }
+
 		// ctor
 		public PlanetVm(Planet planet, Rules rules)
 		{
+			_rules = rules;
 			_planet = planet;
 
 			var next = _planet.GetProductionPreview(rules);
@@ -35,6 +43,25 @@ namespace BuildQueueLab.UI.ViewModels
 			BuildQueue = new ConstructionQueueVm(_planet.BuildQueue);
 
 			Installations = _planet.Installations.Items.Select(stack => new InstallationStackWrapper(stack)).ToList();
+
+			Districts = _planet.Districts.Select((d, n) => new DistrictWrapper(d, n + 1)).ToList();
+
+			EnqueueInstallationCommand = new RelayCommand<string>(DoEnqueueInstallation, CanEnqueueInstallation);
+		}
+
+		private bool CanEnqueueInstallation(string name)
+		{
+			var design = _rules.PlanetaryInstallations.SingleOrDefault(pi => pi.Name == name);
+			return design != null;
+		}
+
+		private void DoEnqueueInstallation(string name)
+		{
+			var design = _rules.PlanetaryInstallations.Single(pi => pi.Name == name);
+			_planet.BuildQueue.Enqueue(design, 1);
+
+			BuildQueue = new ConstructionQueueVm(_planet.BuildQueue);
+			RaisePropertyChanged(() => BuildQueue);
 		}
 	}
 
@@ -81,6 +108,19 @@ namespace BuildQueueLab.UI.ViewModels
 		{
 			Count = stack.Count;
 			Name = stack.Installation.Name;
+		}
+	}
+
+	class DistrictWrapper : ObservableObject
+	{
+		public int Id { get; private set; }
+
+		public string[] Flags { get; private set; }
+
+		public DistrictWrapper(District district, int id)
+		{
+			Id = id;
+			Flags = district.Types.Select(dt => dt.Name).ToArray();
 		}
 	}
 }

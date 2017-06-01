@@ -31,6 +31,8 @@ namespace BuildQueueLab.UI.ViewModels
 
 		public ICommand EnqueueInstallationCommand { get; private set; }
 
+		public IEnumerable<string> EnqueueInstallationParams { get; private set; }
+
 		// ctor
 		public PlanetVm(Planet planet, Rules rules)
 		{
@@ -47,6 +49,10 @@ namespace BuildQueueLab.UI.ViewModels
 			Districts = _planet.Districts.Select((d, n) => new DistrictWrapper(d, n + 1)).ToList();
 
 			EnqueueInstallationCommand = new RelayCommand<string>(DoEnqueueInstallation, CanEnqueueInstallation);
+
+			EnqueueInstallationParams = _rules.PlanetaryInstallations
+				.Select(pi => pi.Name)
+				.ToList();
 		}
 
 		private bool CanEnqueueInstallation(string name)

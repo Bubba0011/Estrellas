@@ -4,14 +4,20 @@
 						  xmlns:vm="clr-namespace:BuildQueueLab.UI.ViewModels">
 	<DataTemplate DataType="{x:Type vm:MainVm}">
 		<DockPanel>
-			<Menu DockPanel.Dock="Top">
+			<Menu DockPanel.Dock="Top" IsMainMenu="True" x:Name="MainMenu">
 				<MenuItem Header="Turn">
 					<MenuItem Header="Generate Next" Command="{Binding UpdateCommand}" InputGestureText="F5" />
 				</MenuItem>
 				<MenuItem Header="Planet">
-					<MenuItem Header="Enqueue Factory" Command="{Binding CurrentPlanet.EnqueueInstallationCommand}" CommandParameter="Factory" />
-					<MenuItem Header="Enqueue Farm" Command="{Binding CurrentPlanet.EnqueueInstallationCommand}" CommandParameter="Farm" />
-					<MenuItem Header="Enqueue Mine" Command="{Binding CurrentPlanet.EnqueueInstallationCommand}" CommandParameter="Mine" />
+					<MenuItem Header="Enqueue" ItemsSource="{Binding CurrentPlanet.EnqueueInstallationParams}">
+						<MenuItem.ItemContainerStyle>
+							<Style TargetType="{x:Type MenuItem}">
+								<Setter Property="Header" Value="{Binding}" />
+								<Setter Property="CommandParameter" Value="{Binding}" />
+								<Setter Property="Command" Value="{Binding ElementName=MainMenu, Path=DataContext.CurrentPlanet.EnqueueInstallationCommand}" />
+							</Style>
+						</MenuItem.ItemContainerStyle>
+					</MenuItem>
 				</MenuItem>
 			</Menu>
 			

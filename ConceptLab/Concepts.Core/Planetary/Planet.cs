@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -103,33 +102,6 @@ namespace Concepts.Core
 		private void Construct(Rules rules)
 		{
 			BuildQueue.Construct(this);
-		}
-	}
-
-	public static class PlanetBuilder
-	{
-		public static Planet Build(Rules rules, int population, int districtCount)
-		{
-			Random rnd = new Random(123456);
-
-			Planet planet = new Planet(rules, population);
-
-			for (int i = 0; i < districtCount; i++)
-			{
-				District district = new District();
-
-				foreach (DistrictType type in rules.DistrictTypes.Items)
-				{
-					if (rnd.Next(0, 100) < type.Pct)
-					{
-						district.Types.Add(type);
-					}
-				}
-
-				planet.Districts.Add(district);
-			}
-
-			return planet;
 		}
 	}
 }

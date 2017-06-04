@@ -19,7 +19,7 @@ namespace Concepts.Core
 			UsedResources = what.ConstructionCost * 0;
 		}
 
-		public ResourceAmountVector Execute(ResourceAmountVector available)
+		internal ResourceAmountVector Calculate(ResourceAmountVector available)
 		{
 			var resourcesTaken = ResourceAmountVector.Minimize(available, RemainingResources);
 
@@ -34,7 +34,7 @@ namespace Concepts.Core
 				if (!materialCost.IsZeroVector)
 				{
 					var materialTaken = resourcesTaken.Filter(isMaterials);
-					
+
 					// Use all available materials
 					var newUsedResources = UsedResources + materialTaken;
 					var usedMaterials = newUsedResources.Filter(isMaterials);
@@ -49,8 +49,15 @@ namespace Concepts.Core
 				}
 			}
 
-			UsedResources += resourcesTaken;
 			return resourcesTaken;
+		}
+
+		public ResourceAmountVector Execute(ResourceAmountVector available)
+		{
+			var consumed = Calculate(available);
+			UsedResources += consumed;
+
+			return consumed;
 		}
 	}
 }

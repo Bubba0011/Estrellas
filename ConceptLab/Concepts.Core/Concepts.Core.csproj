@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Construction\ConstructionOrder.cs" />
     <Compile Include="Construction\ConstructionQueue.cs" />
+    <Compile Include="Construction\ConstructionReport.cs" />
     <Compile Include="Construction\IConstructable.cs" />
     <Compile Include="Planetary\District.cs" />
     <Compile Include="Planetary\PlanetBuilder.cs" />

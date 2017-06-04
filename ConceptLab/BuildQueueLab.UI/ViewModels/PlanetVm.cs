@@ -76,10 +76,10 @@ namespace BuildQueueLab.UI.ViewModels
 		public IEnumerable<ResourceAmountWrapper> Items { get; private set; }
 
 		// ctor
-		public ResourceAmountVectorWrapper(ResourceAmountVector current, ResourceAmountVector next)
+		public ResourceAmountVectorWrapper(ResourceAmountVector current, Projection next)
 		{	
 			Items = current.Resources
-				.Select(resource => new ResourceAmountWrapper(resource, current[resource], next[resource]))
+				.Select(resource => new ResourceAmountWrapper(resource, current, next))
 				.ToList();
 		}
 	}
@@ -92,14 +92,21 @@ namespace BuildQueueLab.UI.ViewModels
 
 		public int NextAmount { get; private set; }
 
-		public int Change => NextAmount - CurrentAmount;
+		public int ProducedAmount { get; private set; }
+
+		public int ConsumedAmount { get; private set; }
+
+		public int WastedAmount { get; private set; }
 
 		// ctor
-		public ResourceAmountWrapper(Resource resource, int current, int next)
+		public ResourceAmountWrapper(Resource resource, ResourceAmountVector current, Projection next)
 		{
 			Name = resource.Name;
-			CurrentAmount = current;
-			NextAmount = next;
+			CurrentAmount = current[resource];
+			NextAmount = next.Available[resource];
+			ProducedAmount = next.Produced[resource];
+			ConsumedAmount = next.Consumed[resource];
+			WastedAmount = next.Wasted[resource];
 		}
 	}
 

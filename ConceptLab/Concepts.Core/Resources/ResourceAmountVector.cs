@@ -67,6 +67,15 @@ namespace Concepts.Core
 			return format == "long" ? LongString() : VectorString();
 		}
 
+		public bool Equals(ResourceAmountVector other)
+		{
+			if (other == this) return true;
+
+			return _amounts
+				.Zip(other._amounts, (a, b) => a == b)
+				.All(same => same);
+		}
+
 		private string VectorString()
 		{
 			return $"({string.Join(",", _amounts)})";

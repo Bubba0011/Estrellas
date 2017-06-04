@@ -45,5 +45,29 @@ namespace Concepts.Core
 				}
 			}
 		}
+
+		internal ConstructionReport Preview(ResourceAmountVector availableResources)
+		{
+			ConstructionReport report = new ConstructionReport(availableResources);
+
+			foreach (var order in _orders)
+			{				
+				var consumed = order.Calculate(availableResources);
+				availableResources -= consumed;
+
+				report.AddItem(consumed);
+
+				if (consumed.Equals(order.RemainingResources))
+				{
+					//order.Construction.Deploy(planet, 1);
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return report;
+		}
 	}
 }

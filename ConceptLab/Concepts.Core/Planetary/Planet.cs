@@ -53,20 +53,39 @@ namespace Concepts.Core
 		{
 			Produce(rules);
 			Construct(rules);
+			Decay(rules);
 		}
 
 		/// <summary>
 		/// Gets a preview of available resources after the next production phase.
 		/// </summary>
-		public ResourceAmountVector GetProductionPreview(Rules rules)
+		public Projection GetProductionPreview(Rules rules)
 		{
+			// TODO: Remove
 			// Clear remaining transitory resources
-			var availableResources = AvailableResources.Filter(resource => !resource.IsTransitory);
+			ResourceAmountVector availableResources = AvailableResources.Filter(resource => !resource.IsTransitory);
 			
 			// "Perform" production
-			var productionReport = CalculateProduction(rules, availableResources);
+			ProductionReport productionReport = CalculateProduction(rules, availableResources);
+			ResourceAmountVector tempAvailable = availableResources + productionReport.TotalFlow.NetFlow;
 
-			return availableResources + productionReport.TotalFlow.NetFlow;
+			// "Perform" construction
+			ConstructionReport constructionReport = CalculateConstruction(rules, tempAvailable);
+			ResourceAmountVector newAvailable = tempAvailable - constructionReport.ConsumedResources;
+
+			// Handle waste
+			ResourceAmountVector waste = newAvailable.Filter(resource => resource.IsTransitory);
+			newAvailable -= waste;
+
+			var projection = new Projection()
+			{
+				Produced = productionReport.TotalFlow.Output,
+				Consumed = productionReport.TotalFlow.Input + constructionReport.ConsumedResources,
+				Available = newAvailable,
+				Wasted = waste,
+			};
+			
+			return projection;
 		}
 		
 		/// <summary>
@@ -74,7 +93,7 @@ namespace Concepts.Core
 		/// </summary>
 		private void Produce(Rules rules)
 		{
-			AvailableResources = GetProductionPreview(rules);
+			AvailableResources += CalculateProduction(rules, AvailableResources).TotalFlow.NetFlow;
 		}
 
 		private ProductionReport CalculateProduction(Rules rules, ResourceAmountVector availableResources)
@@ -103,5 +122,26 @@ namespace Concepts.Core
 		{
 			BuildQueue.Construct(this);
 		}
+
+		private ConstructionReport CalculateConstruction(Rules rules, ResourceAmountVector availableResources)
+		{
+			return BuildQueue.Preview(availableResources);
+		}
+
+		private void Decay(Rules rules)
+		{
+			AvailableResources = AvailableResources.Filter(resource => !resource.IsTransitory);
+		}
+	}
+
+	public class Projection
+	{
+		public ResourceAmountVector Produced { get; set; }
+
+		public ResourceAmountVector Consumed { get; set; }
+
+		public ResourceAmountVector Wasted { get; set; }
+
+		public ResourceAmountVector Available { get; set; }
 	}
 }

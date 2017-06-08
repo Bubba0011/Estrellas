@@ -29,7 +29,7 @@
 				</Operation>
 				<Input />
 				<Output>
-					<Resource name="Food" amount="5" />
+					<Resource name="Food" amount="5000" />
 				</Output>
 			</Production>
 		</PI>
@@ -43,15 +43,15 @@
 				</Operation>
 				<Input />
 				<Output>
-					<Resource name="Boranium" amount="1" />
-					<Resource name="Germanium" amount="1" />
-					<Resource name="Ironium" amount="1" />
+					<Resource name="Boranium" amount="500" />
+					<Resource name="Germanium" amount="500" />
+					<Resource name="Ironium" amount="500" />
 				</Output>
 			</Production>
 		</PI>
 		<PI name="Factory" prio="5">
 			<Construction>				
-				<Resource name="Germanium" amount="4" />
+				<Resource name="Germanium" amount="4000" />
 				<Resource name="Labor" amount="10" />
 			</Construction>
 			<Production>
@@ -66,9 +66,9 @@
 		</PI>
 		<PI name="Bootcamp" prio="3">
 			<Construction>
-				<Resource name="Boranium" amount="400" />
-				<Resource name="Germanium" amount="200" />
-				<Resource name="Ironium" amount="400" />
+				<Resource name="Boranium" amount="300000" />
+				<Resource name="Germanium" amount="200000" />
+				<Resource name="Ironium" amount="400000" />
 				<Resource name="Labor" amount="1000" />
 			</Construction>
 			<Production>

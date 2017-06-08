@@ -43,11 +43,11 @@
 						<DataTemplate>
 							<StackPanel Orientation="Horizontal">
 								<TextBlock Text="{Binding Name}" Width="100" />
-								<TextBlock Text="{Binding CurrentAmount}" Width="50" TextAlignment="Right" FontWeight="Bold" ToolTip="Available" />
-								<TextBlock Text="{Binding ProducedAmount}" Width="50" TextAlignment="Right" Foreground="Lime" ToolTip="Produced" />
-								<TextBlock Text="{Binding ConsumedAmount}" Width="50" TextAlignment="Right" Foreground="Blue" ToolTip="Consumed" />
-								<TextBlock Text="{Binding WastedAmount}" Width="50" TextAlignment="Right" Foreground="Red" ToolTip="Wasted" />
-								<TextBlock Text="{Binding NextAmount}" Width="50" TextAlignment="Right" FontWeight="SemiBold" ToolTip="Available next turm" />
+								<TextBlock Text="{Binding CurrentAmount}" Width="70" TextAlignment="Right" FontWeight="Bold" ToolTip="Available" />
+								<TextBlock Text="{Binding ProducedAmount}" Width="60" TextAlignment="Right" Foreground="Lime" ToolTip="Produced" />
+								<TextBlock Text="{Binding ConsumedAmount}" Width="60" TextAlignment="Right" Foreground="Blue" ToolTip="Consumed" />
+								<TextBlock Text="{Binding WastedAmount}" Width="60" TextAlignment="Right" Foreground="Red" ToolTip="Wasted" />
+								<TextBlock Text="{Binding NextAmount}" Width="70" TextAlignment="Right" FontWeight="SemiBold" ToolTip="Available next turm" />
 							</StackPanel>
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>

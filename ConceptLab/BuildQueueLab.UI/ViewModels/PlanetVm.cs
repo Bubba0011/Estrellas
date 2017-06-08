@@ -68,6 +68,10 @@ namespace BuildQueueLab.UI.ViewModels
 
 			BuildQueue = new ConstructionQueueVm(_planet.BuildQueue);
 			RaisePropertyChanged(() => BuildQueue);
+
+			var next = _planet.GetProductionPreview(_rules);
+			AvailableResources = new ResourceAmountVectorWrapper(_planet.AvailableResources, next);
+			RaisePropertyChanged(() => AvailableResources);
 		}
 	}
 
@@ -88,25 +92,34 @@ namespace BuildQueueLab.UI.ViewModels
 	{
 		public string Name { get; private set; }
 
-		public int CurrentAmount { get; private set; }
+		public string CurrentAmount { get; private set; }
 
-		public int NextAmount { get; private set; }
+		public string NextAmount { get; private set; }
 
-		public int ProducedAmount { get; private set; }
+		public string ProducedAmount { get; private set; }
 
-		public int ConsumedAmount { get; private set; }
+		public string ConsumedAmount { get; private set; }
 
-		public int WastedAmount { get; private set; }
+		public string WastedAmount { get; private set; }
 
 		// ctor
 		public ResourceAmountWrapper(Resource resource, ResourceAmountVector current, Projection next)
 		{
 			Name = resource.Name;
-			CurrentAmount = current[resource];
-			NextAmount = next.Available[resource];
-			ProducedAmount = next.Produced[resource];
-			ConsumedAmount = next.Consumed[resource];
-			WastedAmount = next.Wasted[resource];
+			CurrentAmount = F(current[resource]);
+			NextAmount = F(next.Available[resource]);
+			ProducedAmount = F(next.Produced[resource]);
+			ConsumedAmount = F(next.Consumed[resource]);
+			WastedAmount = F(next.Wasted[resource]);
+		}
+
+		private string F(int value)
+		{
+			IFormatProvider format = System.Globalization.CultureInfo.InvariantCulture;
+
+			if (value < 10_000) return value.ToString();
+			if (value < 1_000_000) return (value / 1_000m).ToString("0.00k", format);
+			return (value / 1_000_000m).ToString("0.00M", format);
 		}
 	}
 

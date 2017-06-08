@@ -10,9 +10,9 @@ namespace Concepts.Core
 	{
 		private readonly List<Resource> _resources = new List<Resource>();
 
-		public readonly Resource PopulationResource;
+		public Resource PopulationResource => GetResource("Population");
 
-		public readonly Resource FoodResource;
+		public Resource FoodResource => GetResource("Food");
 
 		public int Count => _resources.Count;
 
@@ -23,14 +23,26 @@ namespace Concepts.Core
 		// ctor
 		public ResourceRegistry()
 		{
-			PopulationResource = AddResource("Population", false, false);
-			FoodResource = AddResource("Food", true, false);
+			AddResource("Population", false, false);
+			AddResource("Food", true, false);
 		}
 
-		internal Resource AddResource(string name, bool transitory, bool refined)
+		internal Resource AddResource(string name, bool transitory, bool refined, decimal? decayRate = null)
 		{
-			Resource resource = new Resource(name, transitory, refined);
-			_resources.Add(resource);
+			decimal decay = decayRate ?? (transitory ? 1 : 0);		
+			Resource resource = new Resource(name, transitory, refined, decay);
+
+			Resource overrideTarget = GetResource(name);
+			if (overrideTarget != null)
+			{
+				int index = _resources.IndexOf(overrideTarget);
+				_resources[index] = resource;
+			}
+			else
+			{
+				_resources.Add(resource);
+			}			
+
 			return resource;
 		}
 

@@ -9,6 +9,8 @@
 		<Resource name="Marines" is-refined="true" />		
 		<!-- Other resource (transitory, elementary) -->
 		<Resource name="Labor" is-transitory="true" />
+		<!-- Override -->
+		<Resource name="Food" is-transitory="true" decay-rate="0.33" />
 	</Resources>
 
 	<Districts>

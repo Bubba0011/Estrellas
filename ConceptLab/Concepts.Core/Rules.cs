@@ -28,7 +28,8 @@ namespace Concepts.Core
 				string name = (string)xResource.Attribute("name");
 				bool transitory = (bool?)xResource.Attribute("is-transitory") ?? false;
 				bool refined = (bool?)xResource.Attribute("is-refined") ?? false;
-				rules.Resources.AddResource(name, transitory, refined);
+				decimal decay = (decimal?)xResource.Attribute("decay-rate") ?? 0;
+				rules.Resources.AddResource(name, transitory, refined, decay);
 			}
 
 			// Resource versors

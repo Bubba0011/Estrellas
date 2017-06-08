@@ -61,20 +61,16 @@ namespace Concepts.Core
 		/// </summary>
 		public Projection GetProductionPreview(Rules rules)
 		{
-			// TODO: Remove
-			// Clear remaining transitory resources
-			ResourceAmountVector availableResources = AvailableResources.Filter(resource => !resource.IsTransitory);
-			
 			// "Perform" production
-			ProductionReport productionReport = CalculateProduction(rules, availableResources);
-			ResourceAmountVector tempAvailable = availableResources + productionReport.TotalFlow.NetFlow;
+			ProductionReport productionReport = CalculateProduction(rules, AvailableResources);
+			ResourceAmountVector tempAvailable = AvailableResources + productionReport.TotalFlow.NetFlow;
 
 			// "Perform" construction
 			ConstructionReport constructionReport = CalculateConstruction(rules, tempAvailable);
 			ResourceAmountVector newAvailable = tempAvailable - constructionReport.ConsumedResources;
 
 			// Handle waste
-			ResourceAmountVector waste = newAvailable.Filter(resource => resource.IsTransitory);
+			ResourceAmountVector waste = CalculateDecay(rules, newAvailable);
 			newAvailable -= waste;
 
 			var projection = new Projection()
@@ -130,7 +126,20 @@ namespace Concepts.Core
 
 		private void Decay(Rules rules)
 		{
-			AvailableResources = AvailableResources.Filter(resource => !resource.IsTransitory);
+			AvailableResources -= CalculateDecay(rules, AvailableResources);
+		}
+
+		private ResourceAmountVector CalculateDecay(Rules rules, ResourceAmountVector availableResources)
+		{ 
+			ResourceAmountVector decay = availableResources * 0;
+
+			foreach (var resource in rules.Resources.Items)
+			{
+				int resourceDecay = (int)(availableResources[resource] * resource.DecayRate);
+				decay += resource.Versor * resourceDecay;
+			}
+
+			return decay;
 		}
 	}
 
